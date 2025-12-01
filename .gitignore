@@ -2,5 +2,7 @@
 result
 result-*
 
+input.txt
+
 # Ignore automatically generated direnv output
 .direnv
