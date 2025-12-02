@@ -10,6 +10,16 @@ with rec {
     raw = readFile ./input.txt;
     ranges = map (s: (map fromJSON (nicesplit "-" s))) (nicesplit "," raw);
     power = base: exponent: if exponent == 0 then 1 else (power base (exponent - 1)) * base;
+    invid = parts: l: r:
+        if mod (digits l) parts != 0 then [] 
+        else
+        with rec {
+            exp = (digits l) / parts;
+            mult = sum (map (x: power 10 (x * exp)) (range 0 (parts - 1)));
+            start = ceil l mult;
+            end = r / mult;
+        };
+        map (x: x * mult) (range start end);
     invalid_ids_in_range = l: r: 
     (
         if digits l < digits r then
@@ -18,15 +28,12 @@ with rec {
         ++
         invalid_ids_in_range border r
         else
-        if mod (digits l) 2 == 1 then [] 
-        else
-        with rec {
-            exp = (digits l) / 2;
-            mult = (power 10 exp) + 1;
-            start = ceil l mult;
-            end = r / mult;
-        };
-        map (x: x * mult) (range start end)
+        pkgs.lib.lists.unique (foldl' 
+        (a: b: 
+            a ++ (invid b l r)
+        )
+        [] (range 2 (digits l))
+        )
     );
 };
 sum (map (a: sum (invalid_ids_in_range (elemAt a 0) (elemAt a 1))) ranges)
