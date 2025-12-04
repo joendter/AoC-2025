@@ -9,10 +9,13 @@ rec {
     raw = readFile ./input.txt;
     reverse = pkgs.lib.lists.reverseList;
     tail = pkgs.lib.lists.tail;
+    head = pkgs.lib.lists.head;
     index_of = predicate: list: 
     if predicate (head list) then 0 else (index_of predicate (tail list) + 1);
     max = list: foldl' pkgs.lib.trivial.max 0 list;
     drop = pkgs.lib.lists.drop;
     digits = n: if n < 10 then 1 else (digits (n / 10)) + 1;
     power = base: exponent: if exponent == 0 then 1 else (power base (exponent - 1)) * base;
+    as_char_array = string: filter (x: stringLength x > 0) (nicesplit "" string); 
+
 }
