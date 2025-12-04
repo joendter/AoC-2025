@@ -10,6 +10,7 @@ rec {
     reverse = pkgs.lib.lists.reverseList;
     tail = pkgs.lib.lists.tail;
     head = pkgs.lib.lists.head;
+    flatten = pkgs.lib.lists.flatten;
     index_of = predicate: list: 
     if predicate (head list) then 0 else (index_of predicate (tail list) + 1);
     max = list: foldl' pkgs.lib.trivial.max 0 list;
