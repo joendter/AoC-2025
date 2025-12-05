@@ -18,5 +18,6 @@ rec {
     digits = n: if n < 10 then 1 else (digits (n / 10)) + 1;
     power = base: exponent: if exponent == 0 then 1 else (power base (exponent - 1)) * base;
     as_char_array = string: filter (x: stringLength x > 0) (nicesplit "" string); 
+    unique = pkgs.lib.lists.unique;
 
 }
