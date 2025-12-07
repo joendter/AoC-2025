@@ -23,5 +23,8 @@ rec {
     bool_to_int = x: if x then 1 else 0;
     elemAt2d = array: pos: elemAt (elemAt array pos.y) pos.x;
     range_across = array: range 0 (length array - 1);
+    rep = val: times: map (x: val) (range 1 times);
+    last = pkgs.lib.lists.last;
+    concatStrings = pkgs.lib.strings.concatStrings;
 
 }
