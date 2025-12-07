@@ -19,5 +19,6 @@ rec {
     power = base: exponent: if exponent == 0 then 1 else (power base (exponent - 1)) * base;
     as_char_array = string: filter (x: stringLength x > 0) (nicesplit "" string); 
     unique = pkgs.lib.lists.unique;
+    bool_to_int = x: if x then 1 else 0;
 
 }
