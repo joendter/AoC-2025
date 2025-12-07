@@ -23,9 +23,9 @@ with rec {
     {state = state; count = count;};
     initial = {state = map (c: bool_to_int (c == "S")) (as_char_array (head relevant_lines)); count = 0;};
 };
-(
+sum (
 foldl' 
 process_line
 initial
 (tail relevant_lines)
-)
+).state
