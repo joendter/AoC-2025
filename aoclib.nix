@@ -3,6 +3,7 @@ rec {
     pkgs = import <nixpkgs> {};
     mod = n: modulus: pkgs.lib.trivial.mod ((pkgs.lib.trivial.mod n modulus)+ modulus) modulus;
     nicesplit = (splitOn: string: filter (x: isString x) (split splitOn string));
+    nicesplit0 = splitOn: string: filter (x: x != "") (nicesplit splitOn string);
     range = pkgs.lib.lists.range;
     sum = list: foldl' add 0 list;
     ceil = a: b: (a - 1) / b + 1;
@@ -20,5 +21,10 @@ rec {
     as_char_array = string: filter (x: stringLength x > 0) (nicesplit "" string); 
     unique = pkgs.lib.lists.unique;
     bool_to_int = x: if x then 1 else 0;
+    elemAt2d = array: pos: elemAt (elemAt array pos.y) pos.x;
+    range_across = array: range 0 (length array - 1);
+    rep = val: times: map (x: val) (range 1 times);
+    last = pkgs.lib.lists.last;
+    concatStrings = pkgs.lib.strings.concatStrings;
 
 }
